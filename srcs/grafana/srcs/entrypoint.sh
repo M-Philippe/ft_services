@@ -1,0 +1,1 @@
+/usr/sbin/grafana-server --config=grafana.ini --homepath=/usr/share/grafana

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf-deployment
+  labels:
+    app: telegraf-deployment
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      containers:
+      - name: telegraf
+        image: telegraf
+        imagePullPolicy: Never
+        volumeMounts:
+          - name: docker-socket
+            mountPath: /var/run/docker.sock
+        ports:
+        - containerPort: 3050
+        livenessProbe:
+          exec:
+            command:
+              - bin/sh
+              - ./liveness.sh
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+      volumes:
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket

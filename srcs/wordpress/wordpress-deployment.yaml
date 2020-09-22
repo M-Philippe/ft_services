@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress-deployment
+  labels:
+    app: wordpress-deployment
+    role: wp_db
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5050
+        livenessProbe:
+          tcpSocket:
+            port: 5050
+          initialDelaySeconds: 20
+          periodSeconds: 20

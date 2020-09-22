@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: telegraf-service
+  labels:
+    app: telegraf-service
+spec:
+  type: ClusterIP
+  ports:
+  - name: port-telegraf
+    port: 3050
+  selector:
+    app: telegraf

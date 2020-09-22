@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      volumes:
+        - name: mysql-pv-database
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+      containers:
+      - name: mysql
+        image: mysql
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+          - mountPath: "/database/"
+            name: mysql-pv-database
+        livenessProbe:
+          exec:
+            command:
+              - bin/sh
+              - ./liveness.sh
+          initialDelaySeconds: 30
+          timeoutSeconds: 5

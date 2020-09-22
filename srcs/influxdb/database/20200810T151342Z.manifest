@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "fileName": "20200810T151342Z.meta",
+    "size": 217
+  },
+  "limited": false,
+  "files": [
+    {
+      "database": "influx_db_telegraf",
+      "policy": "autogen",
+      "shardID": 2,
+      "fileName": "20200810T151342Z.s2.tar.gz",
+      "size": 13863424,
+      "lastModified": 0
+    },
+    {
+      "database": "influx_db_telegraf",
+      "policy": "autogen",
+      "shardID": 3,
+      "fileName": "20200810T151342Z.s3.tar.gz",
+      "size": 71513088,
+      "lastModified": 0
+    }
+  ]
+}

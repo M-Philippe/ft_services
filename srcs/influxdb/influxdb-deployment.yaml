@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influxdb-deployment
+  labels:
+    app: influxdb-deployment
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      volumes:
+        - name: influxdb-pv-database
+          persistentVolumeClaim:
+            claimName: influxdb-pv-claim
+      containers:
+      - name: influxdb
+        image: influxdb
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8086
+        volumeMounts:
+          - mountPath: "/database/"
+            name: influxdb-pv-database
+        livenessProbe:
+          tcpSocket:
+            port: 8086
+          initialDelaySeconds: 20
+          periodSeconds: 10

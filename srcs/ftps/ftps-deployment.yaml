@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ftps-deployment
+  labels:
+    app: ftps-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ftps
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      volumes:
+        - name: ftps-pv-storage
+          persistentVolumeClaim:
+            claimName: ftps-pv-claim
+      containers:
+      - name: ftps
+        image: ftps
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 20
+          containerPort: 21
+        volumeMounts:
+          - mountPath: "/home/user/data"
+            name: ftps-pv-storage
+        livenessProbe:
+          tcpSocket:
+            port: 21
+          initialDelaySeconds: 20
+          periodSeconds: 20

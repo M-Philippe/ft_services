@@ -1,0 +1,8 @@
+USE mysql;
+FLUSH PRIVILEGES;
+GRANT ALL ON *.* TO 'root'@'%' identified by 'root' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'root'@'localhost' identified by 'root' WITH GRANT OPTION;
+SET PASSWORD FOR 'root'@'localhost'=PASSWORD('root');
+FLUSH PRIVILEGES;
+CREATE DATABASE wordpress;
+FLUSH PRIVILEGES;
